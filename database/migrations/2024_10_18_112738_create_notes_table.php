@@ -12,7 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('notes', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('title');
+            $table->text('body');
+            $table->date('send_date');
+            $table->boolean('is_published')->default(false);
+            $table->integer('heart_count')->default(0);
             $table->timestamps();
         });
     }
