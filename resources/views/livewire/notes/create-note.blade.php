@@ -10,7 +10,25 @@ new class extends Component {
 
     public function submit()
     {
-        dd($this->noteTitle, $this->noteBody, $this->noteRecipient, $this->noteSendDate);
+        $validated = $this->validate([
+            'noteTitle' => ['required', 'string', 'min:5'],
+            'noteBody' => ['required', 'string', 'min:20'],
+            'noteRecipient' => ['required', 'email'],
+            'noteSendDate' => ['required', 'date'],
+        ]);
+
+        auth()
+            ->user()
+            ->notes()
+            ->create([
+                'title' => $this->noteTitle,
+                'body' => $this->noteBody,
+                'recipient' => $this->noteRecipient,
+                'send_date' => $this->noteSendDate,
+                'is_published' => false,
+            ]);
+
+        redirect(route('notes.index'));
     }
 }; ?>
 
@@ -24,5 +42,6 @@ new class extends Component {
         <div class="pt-4">
             <x-button type="submit" primary right-icon="calendar" spinner>Schedule Note</x-button>
         </div>
+        <x-errors />
     </form>
 </div>
