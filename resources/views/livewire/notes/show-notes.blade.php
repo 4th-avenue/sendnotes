@@ -7,6 +7,7 @@ new class extends Component {
     public function delete($noteId)
     {
         $note = Note::where('id', $noteId)->first();
+        $this->authorize('delete', $note);
         $note->delete();
     }
 
