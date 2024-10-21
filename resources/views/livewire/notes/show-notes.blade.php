@@ -24,12 +24,15 @@ new class extends Component {
             </div>
         @else
             <x-button class="mb-12" primary right-icon="plus" href="{{ route('notes.create') }}" wire:navigate>Create note</x-button>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-3 gap-4">
                 @foreach ($notes as $note)
                     <x-card wire:key='{{ $note->id }}'>
                         <div class="flex justify-between">
-                            <a href="#"
-                                class="text-xl font-bold hover:underline hover:text-blue-500">{{ $note->title }}</a>
+                            <div>
+                                <a href="#"
+                                    class="text-xl font-bold hover:underline hover:text-blue-500">{{ $note->title }}</a>
+                                    <p class="mt-2 text-xs">{{ Str::limit($note->body, 50) }}</p>
+                            </div>
                             <div class="text-xs text-gray-500">{{ \Carbon\Carbon::parse($note->send_date)->format('M-d-Y') }}
                             </div>
                         </div>
