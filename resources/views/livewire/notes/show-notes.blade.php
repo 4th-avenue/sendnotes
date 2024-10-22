@@ -37,7 +37,7 @@ new class extends Component {
                     <x-card wire:key='{{ $note->id }}'>
                         <div class="flex justify-between">
                             <div>
-                                <a href="#"
+                                <a href="{{ route('notes.edit', $note) }}" wire:navigate
                                     class="text-xl font-bold hover:underline hover:text-blue-500">{{ $note->title }}</a>
                                     <p class="mt-2 text-xs">{{ Str::limit($note->body, 50) }}</p>
                             </div>
